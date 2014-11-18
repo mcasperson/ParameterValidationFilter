@@ -84,4 +84,4 @@ DEMO
 
 Go to http://pvftest-matthewcasperson.rhcloud.com/ to see the parameter validation filter is action.
 
-The source for the demo can be found at https://github.com/AutoGeneral/ParameterValidationFilterDemo
+The source for the demo can be found at https://github.com/mcasperson/ParameterValidationFilterDemo.
