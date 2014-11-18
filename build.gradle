@@ -1,0 +1,166 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: "jacoco"
+apply plugin: 'signing'
+
+sourceCompatibility = 1.7
+version = artifactVersion
+group = artifactGroup
+archivesBaseName = artifactName
+
+/*
+ The sonarRunner plugin needs to be updated to work with SonarQube 4.4.
+ Run "gradle wrapper" to generate the wrapper script, and then run
+ the sonar runner with "gradlew.bat sonarRunner"
+*/
+task wrapper(type: Wrapper) {
+	gradleVersion = "2.2-rc-1"
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+def servletVersion = '3.1.0'
+def jspApiVersion = '2.0'
+def jacksonVersion = '1.9.13'
+def springTestVersion = '4.1.0.RELEASE'
+def mockitoVersion = '1.9.5'
+def testNgVersion = '6.0.1'
+def jacocoVersion = '0.7.2.201409121644'
+def esapiVersion = '2.1.0'
+def guavaVersion = '14.0.1'
+def apacheCommonsIOVersion = '2.4'
+def apacheCommonsLangVersion = '3.0'
+
+/*
+ These libraries are provided. Gradle has no concept of provided libraries,
+ but we need to identify these for Maven.
+ */
+def providedLibraries = [
+	'javax.servlet:javax.servlet-api:' + servletVersion,
+	'javax.servlet:jsp-api:' + jspApiVersion
+]
+
+dependencies {
+	/*
+	 Add dependencies on the provided libraries
+	 */
+	for (lib in providedLibraries) {
+		compile lib
+	}
+
+	compile 'org.codehaus.jackson:jackson-mapper-asl:' + jacksonVersion
+	compile 'org.owasp.esapi:esapi:' + esapiVersion
+	compile 'com.google.guava:guava:' + guavaVersion
+	compile 'commons-io:commons-io:' + apacheCommonsIOVersion
+	compile 'org.apache.commons:commons-lang3:' + apacheCommonsLangVersion
+	
+	testCompile 'org.springframework:spring-test:' + springTestVersion
+	testCompile 'org.mockito:mockito-all:' + mockitoVersion	
+	testCompile 'org.testng:testng:' + testNgVersion
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+      
+	/*
+    	It is currently not possible to set the scope to anything other than runtime with the gradle
+    	plugin. This workaround sets the scope to compile.
+    	
+    	http://forums.gradle.org/gradle/topics/maven_publish_plugin_generated_pom_making_dependency_scope_runtime
+    */
+    pom.withXml {
+        /*
+        	Set the scope to provided for those libraries we grouped together in the providedLibraries array
+        */
+        asNode().dependencies.'*'.findAll() {
+            
+            it.scope.text() == 'compile' && providedLibraries.find { 
+            	dep -> def depSplit = dep.split(":"); return depSplit[0] == it.groupId.text() && depSplit[1] == it.artifactId.text() && depSplit[2] == it.version.text();
+            }
+        }.each() {
+            it.scope*.value = 'provided'
+        }
+    }      
+	
+      pom.project {
+        name 'Parameter Validation Filter'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'A servlet filter to validate parameters'
+        url 'https://github.com/AutoGeneral/ParameterValidationFilter'
+
+        scm {
+          connection 'scm:git:https://github.com/AutoGeneral/ParameterValidationFilter.git'
+          developerConnection 'scm:svn:https://github.com/AutoGeneral/ParameterValidationFilter.git'
+          url 'https://github.com/AutoGeneral/ParameterValidationFilter'
+        }
+
+        licenses {
+          license {
+            name 'MIT'
+            url 'http://opensource.org/licenses/MIT'
+          }
+        }
+
+        developers {
+          developer {
+            id 'mcasperson'
+            name 'Matthew Casperson'
+            email 'matthew.casperson@autogeneral.com.au'
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+	Use TestNG and ignore any failures
+*/
+test {
+  // enable TestNG support (default is JUnit)
+  useTestNG() {
+  	// required to create the testng-results.xml file
+  	useDefaultListeners=true
+  }
+  ignoreFailures = true
+}
+
+/*
+	This is required to specify the version of Jacoco
+*/
+jacoco {
+    toolVersion = jacocoVersion
+}
