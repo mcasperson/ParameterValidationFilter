@@ -12,7 +12,7 @@ Add the following to web.xml:
 ```xml
 	<filter>
 		<filter-name>ParameterValidationFilter</filter-name>
-		<filter-class>com.disc_au.validation.filter.ParameterValidationFilter</filter-class>
+		<filter-class>com.matthewcasperson.validation.filter.ParameterValidationFilter</filter-class>
 		<init-param>
 			<param-name>configFile</param-name>
 			<param-value>/WEB-INF/xml/pvf.xml</param-value>
@@ -42,15 +42,15 @@ Create a file called WEB-INF/xml/pvf.xml with the following contents:
                 <ParameterValidationRule>
                 	<!-- This is the fully qualified name of the class used to apply the validation rule -->
                 	<!-- All input fields are to be trimmed of excess whitespace -->
-                    <validationRuleName>com.disc_au.validation.ruleimpl.TrimTextValidationRule</validationRuleName>
+                    <validationRuleName>com.matthewcasperson.validation.ruleimpl.TrimTextValidationRule</validationRuleName>
                 </ParameterValidationRule>
                 <ParameterValidationRule>
                 	<!-- No parameters are expected to already be encoded -->
-                    <validationRuleName>com.disc_au.validation.ruleimpl.FailIfNotCanonicalizedValidationRule</validationRuleName>
+                    <validationRuleName>com.matthewcasperson.validation.ruleimpl.FailIfNotCanonicalizedValidationRule</validationRuleName>
                 </ParameterValidationRule>
                 <ParameterValidationRule>
                 	<!-- No parameters are expected to contain html -->
-                    <validationRuleName>com.disc_au.validation.ruleimpl.FailIfContainsHTMLValidationRule</validationRuleName>
+                    <validationRuleName>com.matthewcasperson.validation.ruleimpl.FailIfContainsHTMLValidationRule</validationRuleName>
                 </ParameterValidationRule>
             </ParameterValidationRuleList>
             <!-- This is a regex that defines which parameteres will be validated by the classes above -->
