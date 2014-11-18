@@ -63,6 +63,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ParameterValidationFilter implements Filter {
 	private static final Logger LOGGER = Logger.getLogger(ParameterValidationFilter.class.getName());
 	private static final SerialisationUtils SERIALISATION_UTILS = new JaxBSerialisationUtilsImpl();
+	
+	/**
+	 * This is the init-param name that we expect to hold a reference to the
+	 * config xml file.
+	 */
 	private static final String CONFIG_PARAMETER_NAME = "configFile";
 	
 	/**
@@ -162,6 +167,11 @@ public class ParameterValidationFilter implements Filter {
 									 */
 									requestWrapper = processRequest;
 								}
+							} else {
+								/*
+								 * This might be intentional, so log it as an INFO
+								 */
+								LOGGER.log(Level.INFO, paramName + " has not been validated.");
 							}
 						}
 					}					
@@ -185,7 +195,7 @@ public class ParameterValidationFilter implements Filter {
 			/*
 			 * We probably reach this because of some invalid state due to rules returning null
 			 * or throwing unchecked exceptions during their own processing. This is logged as
-			 * sever as it is most likely a bug in the code
+			 * severe as it is most likely a bug in the code.
 			 */
 			LOGGER.log(Level.SEVERE, ex.toString());
 			LOGGER.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(ex));	
