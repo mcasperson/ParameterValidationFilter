@@ -49,9 +49,8 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 	private static final RequestParameterUtils REQUEST_PARAMETER_UTILS = new RequestParameterUtilsImpl();
 	
 	/**
-	 * This method will attempt to process the supplied parameter, and either stop all processing, process only
-	 * this rule, or continue with other rules depending on the value returned by the fixParam method
-	 * of a derived class.
+	 * This method will attempt to process the supplied parameter, and either stop all processing by throwning an
+	 * exception, or continue with other rules.
 	 * @throws ValidationFailedException 
 	 */
 	@Override
@@ -72,8 +71,9 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 			 * Defer to a child class for the actual logic that processes the parameter
 			 */
 			final String[] processedParams = fixParams(params);
-				
 			
+			checkState(processedParams.length == params.length, "fixParams should always return the same number of elements as it was passed");
+							
 			/*
 			 * Did it make any difference?
 			 */

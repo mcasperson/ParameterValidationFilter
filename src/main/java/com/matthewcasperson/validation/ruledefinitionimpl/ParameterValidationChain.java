@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * This class represents a chain of validation operations to be applied to any
- * paramaters that match the name regex and which are sent to a page that
+ * parameters that match the name regex and which are sent to a page that
  * matches the URI regex.
  * 
  * @author mcasperson
