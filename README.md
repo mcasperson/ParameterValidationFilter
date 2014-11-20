@@ -85,3 +85,8 @@ DEMO
 Go to http://pvftest-matthewcasperson.rhcloud.com/ to see the parameter validation filter is action.
 
 The source for the demo can be found at https://github.com/mcasperson/ParameterValidationFilterDemo.
+
+MORE INFORMATION
+================
+
+See https://www.owasp.org/index.php/Parameter_Validation_Filter.
