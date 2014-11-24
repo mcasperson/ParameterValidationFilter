@@ -156,16 +156,34 @@ public class ParameterValidationFilter implements Filter {
 									 * It is possible that a bad configuration will result in rule being null
 									 */
 									checkState(rule != null, "A validation rule should never be null. Check the class name defined in the configuration xml file.");
-																	
-									final ServletRequest processRequest = rule.processParameter(requestWrapper, paramName);
-									
-									checkState(processRequest != null, "A validation rule should never return null when processing a paramemter");
-									
-									/*
-									 * The validation rule is expected to return a valid request regardless of the
-									 * processing that should or should not be done.
-									 */
-									requestWrapper = processRequest;
+											
+									try {
+										final ServletRequest processRequest = rule.processParameter(requestWrapper, paramName);
+										
+										checkState(processRequest != null, "A validation rule should never return null when processing a paramemter");
+										
+										/*
+										 * The validation rule is expected to return a valid request regardless of the
+										 * processing that should or should not be done.
+										 */
+										requestWrapper = processRequest;
+									} catch (final ValidationFailedException ex) {
+										/*
+										 * Log this as a warning as we are probably interested in knowing when our apps
+										 * are getting hit with invalid data.
+										 */
+										LOGGER.log(Level.WARNING, ex.toString());
+										
+										/*
+										 * In enforcing mode we rethrow the exception to be caught by an outer 
+										 * catch block that stops processing and returns a HTTP error code.
+										 */
+										if (parameterValidationDefinitions.getEnforcingMode()) {
+											throw ex;
+										} else {
+											LOGGER.log(Level.WARNING, "Enforcing mode is not enabled in PVF. Continuing to process the request.");
+										}
+									}																	
 								}
 							} else {
 								/*
@@ -182,13 +200,10 @@ public class ParameterValidationFilter implements Filter {
 			 * Continue to the next filter
 			 */
 			chain.doFilter(requestWrapper, response);
-		} catch (final ValidationFailedException ex) {
+		} catch (final ValidationFailedException ex) {					
 			/*
-			 * Log this as a warning as we are probably interested in knowing when our apps
-			 * are getting hit with invalid data.
+			 * Stop processing and return a HTTP error code
 			 */
-			LOGGER.log(Level.WARNING, ex.toString());
-			
 			respondWithBadRequest(response);
 		}
 		catch (final Exception ex) {

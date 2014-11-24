@@ -68,7 +68,7 @@ public class SerialisationTest {
 	@Test
 	public void testSerialisation3() {		
 		final ParameterValidationDefinitionImpl validationDef = new ParameterValidationDefinitionImpl();
-		validationDef.setValidationRuleName("com.disc_au.validation.ruleimpl.TrimTextValidationRule");
+		validationDef.setValidationRuleName("com.matthewcasperson.validation.ruleimpl.TrimTextValidationRule");
 		
 		final ParameterValidationChain chain = new ParameterValidationChain();
 		chain.setParamNamePatternString("hithere");
@@ -121,7 +121,7 @@ public class SerialisationTest {
 		settings.put("settingKey", "settingValue");
 		
 		final ParameterValidationDefinitionImpl validationDef = new ParameterValidationDefinitionImpl();
-		validationDef.setValidationRuleName("com.disc_au.validation.ruleimpl.TrimTextValidationRule");
+		validationDef.setValidationRuleName("com.matthewcasperson.validation.ruleimpl.TrimTextValidationRule");
 		validationDef.setSettings(settings);
 		
 		final ParameterValidationChain chain = new ParameterValidationChain();
@@ -162,7 +162,7 @@ public class SerialisationTest {
 		settings.put("pattern", "[A-Z]*");
 		
 		final ParameterValidationDefinitionImpl validationDef = new ParameterValidationDefinitionImpl();
-		validationDef.setValidationRuleName("com.disc_au.validation.ruleimpl.FailIfNotRegexMatchValidationRule");
+		validationDef.setValidationRuleName("com.matthewcasperson.validation.ruleimpl.FailIfNotRegexMatchValidationRule");
 		validationDef.setSettings(settings);
 		
 		final ParameterValidationChain chain = new ParameterValidationChain();

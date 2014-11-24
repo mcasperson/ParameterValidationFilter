@@ -46,6 +46,7 @@ public class ParameterValidationDefinitionsImpl {
 	private static final Logger LOGGER = Logger.getLogger(ParameterValidationDefinitionsImpl.class.getName());
 	
 	private List<ParameterValidationChain> parameterValidationDefinitions;
+	private boolean enforcingMode = true;
 	
 	
 	/**
@@ -85,6 +86,22 @@ public class ParameterValidationDefinitionsImpl {
 		}
 		
 		parameterValidationDefinitions.add(validationChain);
+	}
+
+	/**
+	 * 
+	 * @return true if the filter should return an error code when an exception is thrown, and false otherwise
+	 */
+	public boolean getEnforcingMode() {
+		return enforcingMode;
+	}
+
+	/**
+	 * 
+	 * @param enforcingMode true if the filter should return an error code when an exception is thrown, and false otherwise
+	 */
+	public void setEnforcingMode(final boolean enforcingMode) {
+		this.enforcingMode = enforcingMode;
 	}
 
 
