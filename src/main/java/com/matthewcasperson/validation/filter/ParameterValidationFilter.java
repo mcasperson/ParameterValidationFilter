@@ -133,9 +133,9 @@ public class ParameterValidationFilter implements Filter {
 							
 							final boolean paramMatches = validationChain.getParamNamePattern().matcher(paramName).find();
 							final boolean uriMatches = validationChain.getRequestURIPattern().matcher(httpServletRequest.getRequestURI()).find();
-							
-							final boolean paramMatchesAfterNegation = ((paramMatches && !validationChain.isParamNamePatternNegated()) || (!paramMatches && validationChain.isParamNamePatternNegated()));
-							final boolean uriMatchesAfterNegation = ((uriMatches && !validationChain.isRequestURIPatternNegated()) || (!uriMatches && validationChain.isRequestURIPatternNegated()));
+																				
+							final boolean paramMatchesAfterNegation = paramMatches ^ validationChain.isParamNamePatternNegated();
+							final boolean uriMatchesAfterNegation = uriMatches ^ validationChain.isRequestURIPatternNegated();
 							
 							if (paramMatchesAfterNegation && uriMatchesAfterNegation) {
 								
