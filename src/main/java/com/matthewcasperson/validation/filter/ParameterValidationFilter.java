@@ -133,9 +133,9 @@ public class ParameterValidationFilter implements Filter {
 							
 							final boolean paramMatches = validationChain.getParamNamePattern().matcher(paramName).find();
 							final boolean uriMatches = validationChain.getRequestURIPattern().matcher(httpServletRequest.getRequestURI()).find();
-							
-							final boolean paramMatchesAfterNegation = ((paramMatches && !validationChain.isParamNamePatternNegated()) || (!paramMatches && validationChain.isParamNamePatternNegated()));
-							final boolean uriMatchesAfterNegation = ((uriMatches && !validationChain.isRequestURIPatternNegated()) || (!uriMatches && validationChain.isRequestURIPatternNegated()));
+																				
+							final boolean paramMatchesAfterNegation = paramMatches ^ validationChain.isParamNamePatternNegated();
+							final boolean uriMatchesAfterNegation = uriMatches ^ validationChain.isRequestURIPatternNegated();
 							
 							if (paramMatchesAfterNegation && uriMatchesAfterNegation) {
 								
@@ -194,17 +194,14 @@ public class ParameterValidationFilter implements Filter {
 						}
 					}					
 				}
-			}
-			
-			/*
-			 * Continue to the next filter
-			 */
-			chain.doFilter(requestWrapper, response);
+			}			
 		} catch (final ValidationFailedException ex) {					
 			/*
 			 * Stop processing and return a HTTP error code
 			 */
 			respondWithBadRequest(response);
+			
+			return;
 		}
 		catch (final Exception ex) {
 			/*
@@ -219,7 +216,14 @@ public class ParameterValidationFilter implements Filter {
 			 * Don't allow apps to process raw parameters if this filter has failed
 			 */
 			respondWithBadRequest(response);
+			
+			return;
 		}
+		
+		/*
+		 * Continue to the next filter
+		 */
+		chain.doFilter(requestWrapper, response);
 	}
 	
 	/**
