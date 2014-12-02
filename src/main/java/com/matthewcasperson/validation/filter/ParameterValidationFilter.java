@@ -194,12 +194,7 @@ public class ParameterValidationFilter implements Filter {
 						}
 					}					
 				}
-			}
-			
-			/*
-			 * Continue to the next filter
-			 */
-			chain.doFilter(requestWrapper, response);
+			}			
 		} catch (final ValidationFailedException ex) {					
 			/*
 			 * Stop processing and return a HTTP error code
@@ -219,6 +214,11 @@ public class ParameterValidationFilter implements Filter {
 			 * Don't allow apps to process raw parameters if this filter has failed
 			 */
 			respondWithBadRequest(response);
+		} finally {
+			/*
+			 * Continue to the next filter
+			 */
+			chain.doFilter(requestWrapper, response);
 		}
 	}
 	
