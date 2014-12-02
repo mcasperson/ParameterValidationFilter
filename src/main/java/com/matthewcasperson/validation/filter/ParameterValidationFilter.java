@@ -200,6 +200,8 @@ public class ParameterValidationFilter implements Filter {
 			 * Stop processing and return a HTTP error code
 			 */
 			respondWithBadRequest(response);
+			
+			return;
 		}
 		catch (final Exception ex) {
 			/*
@@ -214,12 +216,14 @@ public class ParameterValidationFilter implements Filter {
 			 * Don't allow apps to process raw parameters if this filter has failed
 			 */
 			respondWithBadRequest(response);
-		} finally {
-			/*
-			 * Continue to the next filter
-			 */
-			chain.doFilter(requestWrapper, response);
+			
+			return;
 		}
+		
+		/*
+		 * Continue to the next filter
+		 */
+		chain.doFilter(requestWrapper, response);
 	}
 	
 	/**
