@@ -145,7 +145,7 @@ public class ParameterValidationFilter implements Filter {
 								 * Loop over each rule in the chain 
 								 */
 								for (final ParameterValidationDefinitionImpl validationRule : validationChain.getList()) {
-									LOGGER.log(Level.INFO, "Processing " + paramName + " with " + validationRule.getValidationRuleName());
+									LOGGER.log(Level.FINE, "Processing " + paramName + " with " + validationRule.getValidationRuleName());
 									
 									/*
 									 * Get the object that will actually do the validation
@@ -260,9 +260,9 @@ public class ParameterValidationFilter implements Filter {
 		try {
 			final String configFile = config.getInitParameter(CONFIG_PARAMETER_NAME);
 			if (configFile != null) {			
-				LOGGER.log(Level.INFO, "Attempting to unmarshall " + configFile);
+				LOGGER.log(Level.FINE, "Attempting to unmarshall " + configFile);
 				final String configXml = IOUtils.toString(config.getServletContext().getResourceAsStream(configFile));
-				LOGGER.log(Level.INFO, "configXml is \n" + configXml);
+				LOGGER.log(Level.FINE, "configXml is \n" + configXml);
 				parameterValidationDefinitions = SERIALISATION_UTILS.readFromXML(configXml, ParameterValidationDefinitionsImpl.class);
 			}
 		} catch (final Exception ex) {
