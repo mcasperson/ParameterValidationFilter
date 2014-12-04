@@ -71,7 +71,11 @@ public class FailIfNotRegexMatchValidationRule extends ParameterValidationRuleTe
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String[] fixParams(final String[] params) throws ValidationFailedException {
+	public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
 		checkArgument(params.length != 0, "params should always have at least one value");
 		
@@ -90,7 +94,7 @@ public class FailIfNotRegexMatchValidationRule extends ParameterValidationRuleTe
 			final String param = params[paramIndex];
 			
 			if (!pattern.matcher(param).find()) {
-				throw new ValidationFailedException(param + " did not find a match with the regex " + pattern.toString());
+				throw new ValidationFailedException("Param did not find a match with the regex " + pattern.toString() + "\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 			}
 		}
 		

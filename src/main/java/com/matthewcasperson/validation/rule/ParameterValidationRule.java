@@ -53,17 +53,21 @@ public interface ParameterValidationRule {
 
 	/**
 	 * Fixes and returns a parameter
+	 * @param name The name of the parameter
+	 * @param url The page that is being requested
 	 * @param param The input parameters
 	 * @return The validated parameters
 	 * @throws ValidationFailedException when the parameter is invalid and can not be made valid
 	 */
-	String[] fixParams(final String[] params) throws ValidationFailedException;
+	String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException;
 	
 	/**
 	 * Fixes and returns a parameter
+	 * @param name The name of the parameter
+	 * @param url The page that is being requested
 	 * @param param The input parameter
 	 * @return The validated parameter
 	 * @throws ValidationFailedException when the parameter is invalid and can not be made valid
 	 */
-	String fixParam(final String param) throws ValidationFailedException;
+	String fixParam(final String name, final String url, final String param) throws ValidationFailedException;
 }

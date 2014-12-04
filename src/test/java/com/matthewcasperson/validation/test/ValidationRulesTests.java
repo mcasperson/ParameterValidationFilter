@@ -41,7 +41,7 @@ public class ValidationRulesTests {
 	public void testTrim() {
 		try {
 			final TrimTextValidationRule rule = new TrimTextValidationRule();
-			Assert.assertEquals("trimmed", rule.fixParam("  trimmed   "));
+			Assert.assertEquals("trimmed", rule.fixParam("test", "test", "  trimmed   "));
 		} catch (final ValidationFailedException ex) {
 			Assert.fail();
 		}
@@ -53,7 +53,7 @@ public class ValidationRulesTests {
 			final HTMLEncodeTextValidationRule rule = new HTMLEncodeTextValidationRule();
 			Assert.assertEquals(
 					"&lt;script&gt;doSomethningEvil();&lt;/script&gt;",
-					rule.fixParam("<script>doSomethningEvil();</script>"));
+					rule.fixParam("test", "test", "<script>doSomethningEvil();</script>"));
 		} catch (final ValidationFailedException ex) {
 			Assert.fail();
 		}
@@ -65,10 +65,10 @@ public class ValidationRulesTests {
 			final CanonicalizeTextValidationRule rule = new CanonicalizeTextValidationRule();
 			Assert.assertEquals(
 					"<script>doSomethningEvil();</script>",
-					rule.fixParam("&lt;script&gt;doSomethningEvil();&lt;/script&gt;"));
+					rule.fixParam("test", "test", "&lt;script&gt;doSomethningEvil();&lt;/script&gt;"));
 			Assert.assertEquals(
 					"<script>doSomethningEvil();</script>",
-					rule.fixParam("%26lt%3Bscript%26gt%3BdoSomethningEvil()%3B%26lt%3B%2Fscript%26gt%3B"));
+					rule.fixParam("test", "test", "%26lt%3Bscript%26gt%3BdoSomethningEvil()%3B%26lt%3B%2Fscript%26gt%3B"));
 		} catch (final ValidationFailedException ex) {
 			Assert.fail();
 		}
@@ -82,14 +82,14 @@ public class ValidationRulesTests {
 		rule.configure(settings);
 		
 		try {
-			rule.fixParam("invalid");
+			rule.fixParam("test", "test", "invalid");
 			Assert.fail();
 		} catch (final ValidationFailedException ex) {
 			
 		}
 		
 		try {
-			rule.fixParam("VALID");
+			rule.fixParam("test", "test", "VALID");
 			
 		} catch (final ValidationFailedException ex) {
 			Assert.fail();

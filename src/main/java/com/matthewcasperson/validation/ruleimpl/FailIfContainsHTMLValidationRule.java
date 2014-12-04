@@ -46,7 +46,11 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String[] fixParams(final String[] params)  throws ValidationFailedException {
+	public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
 		checkArgument(params.length != 0, "params should always have at least one value");
 
@@ -57,7 +61,7 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 				final String encoded = StringEscapeUtils.escapeHtml4(param);
 				
 				if (!encoded.equals(param)) {
-					throw new ValidationFailedException(param + " was found to have special HTML characters.");
+					throw new ValidationFailedException("Parameter found to have special HTML characters.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 				}
 			}
 		}

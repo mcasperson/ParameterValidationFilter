@@ -47,7 +47,11 @@ public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRul
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String[] fixParams(final String[] params)  throws ValidationFailedException {
+	public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
 		checkArgument(params.length != 0, "params should always have at least one value");
 
@@ -59,7 +63,7 @@ public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRul
 				final String canonicalized = encoder.canonicalize(param, false);
 				
 				if (!canonicalized.equals(param)) {
-					throw new ValidationFailedException(param + " was found to already be encode.");
+					throw new ValidationFailedException("Param was found to already be encoded.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 				}
 			}
 		}

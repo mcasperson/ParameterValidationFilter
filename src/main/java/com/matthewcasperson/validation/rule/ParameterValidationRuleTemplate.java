@@ -70,7 +70,7 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 			/*
 			 * Defer to a child class for the actual logic that processes the parameter
 			 */
-			final String[] processedParams = fixParams(params);
+			final String[] processedParams = fixParams(name, ((HttpServletRequest) request).getRequestURL().toString(), params);
 			
 			checkState(processedParams.length == params.length, "fixParams should always return the same number of elements as it was passed");
 							
@@ -115,8 +115,13 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 	/**
 	 * Defer to the fixParams method;
 	 */
-	public String fixParam(final String param) throws ValidationFailedException {
-		final String[] retValue = this.fixParams(new String[] {param});
+	public String fixParam(final String name, final String url, final String param) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
+		
+		final String[] retValue = this.fixParams(name, url, new String[] {param});
 		checkState(retValue != null, "fixParams should never return null");
 		checkState(retValue.length == 1, "fixParams should always return the same number of parameters as it is given");
 		return retValue[0];

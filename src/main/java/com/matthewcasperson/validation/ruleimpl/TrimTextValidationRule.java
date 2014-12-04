@@ -29,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.logging.Logger;
 
+import com.matthewcasperson.validation.exception.ValidationFailedException;
 import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
 
 /**
@@ -43,7 +44,11 @@ public class TrimTextValidationRule extends ParameterValidationRuleTemplate {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String[] fixParams(final String[] params) {
+	public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
 		checkArgument(params.length != 0, "params should always have at least one value");
 		

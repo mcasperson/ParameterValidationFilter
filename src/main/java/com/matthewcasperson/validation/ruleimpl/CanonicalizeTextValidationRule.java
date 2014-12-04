@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import org.owasp.esapi.Encoder;
 import org.owasp.esapi.reference.DefaultEncoder;
 
+import com.matthewcasperson.validation.exception.ValidationFailedException;
 import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -46,7 +47,11 @@ public class CanonicalizeTextValidationRule extends ParameterValidationRuleTempl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String[] fixParams(final String[] params) {
+	public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
+		checkNotNull(name);
+		checkArgument(!name.trim().isEmpty());
+		checkNotNull(url);
+		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
 		checkArgument(params.length != 0, "params should always have at least one value");
 		
