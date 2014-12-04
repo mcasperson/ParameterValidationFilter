@@ -34,6 +34,8 @@ import com.matthewcasperson.validation.exception.ValidationFailedException;
 import com.matthewcasperson.validation.ruleimpl.CanonicalizeTextValidationRule;
 import com.matthewcasperson.validation.ruleimpl.FailIfNotRegexMatchValidationRule;
 import com.matthewcasperson.validation.ruleimpl.HTMLEncodeTextValidationRule;
+import com.matthewcasperson.validation.ruleimpl.NumbersOnlyValidationRule;
+import com.matthewcasperson.validation.ruleimpl.RemoveRegexMatches;
 import com.matthewcasperson.validation.ruleimpl.TrimTextValidationRule;
 
 public class ValidationRulesTests {
@@ -93,6 +95,35 @@ public class ValidationRulesTests {
 			
 		} catch (final ValidationFailedException ex) {
 			Assert.fail();
+		}
+	}
+	
+	@Test
+	public void testNumberOnly1() {
+		final NumbersOnlyValidationRule rule = new NumbersOnlyValidationRule();
+		
+		try {
+			Assert.assertEquals(
+					"123456",
+					rule.fixParam("test", "test", "a123b456c"));
+		} catch (final ValidationFailedException ex) {
+			
+		}
+	}
+	
+	@Test
+	public void testRegexRemove() {
+		final RemoveRegexMatches rule = new RemoveRegexMatches();
+		final Map<String, String> settings = new HashMap<String, String>();
+		settings.put("pattern", "(<!--\\s*I am an invalid comment\\s*-->)|(<!--\\s*I am a second invalid comment\\s*-->)");
+		rule.configure(settings);
+		
+		try {
+			Assert.assertEquals(
+					"This should be kept",
+					rule.fixParam("test", "test", "<!-- I am an invalid comment -->This should be kept<!-- I am a second invalid comment -->"));
+		} catch (final ValidationFailedException ex) {
+			
 		}
 	}
 }
