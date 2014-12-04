@@ -9,12 +9,12 @@
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/owasp/esapi/esapi/2.1.0/esapi-2.1.0.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0.1/169f11e28e3ed9a64e9fa895eaafb579e6a5aa6c/guava-14.0.1-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/14.0.1/69e12f4c6aeac392555f1ea86fab82b5e5e31ad4/guava-14.0.1.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/f2d8698c46d1167ff24b06a840a87d91a02db891/commons-io-2.4-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.0/d48f964b56a931ec2712ce5d411a40d114a69753/commons-lang3-3.0-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.0/8873bd0bb5cb9ee37f1b04578eb7e26fcdd44cb0/commons-lang3-3.0.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.1.0.RELEASE/14fa47a574f0c1180e393fe98a6fb4bf6b47a02a/spring-test-4.1.0.RELEASE-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.1.0.RELEASE/8ce6a6500063c2398b61ef659fef3c8bf192e0b2/spring-test-4.1.0.RELEASE.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-all/1.9.5/b8086d4e4daa361fc746abea62f77a2ae55d3ed9/mockito-all-1.9.5-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-all/1.9.5/79a8984096fc6591c1e3690e07d41be506356fa5/mockito-all-1.9.5.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.testng/testng/6.0.1/d6337c29434eb9adbf4647f4b041942cce8ebfb1/testng-6.0.1-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.testng/testng/6.0.1/a78e29c2e65691c25bda38279561230114e658cb/testng-6.0.1.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/com/google/guava/guava/14.0.1/guava-14.0.1.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/apache/commons/commons-lang3/3.0/commons-lang3-3.0.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/springframework/spring-test/4.1.0.RELEASE/spring-test-4.1.0.RELEASE.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/testng/testng/6.0.1/testng-6.0.1.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-configuration/commons-configuration/1.5/commons-configuration-1.5.jar" exported="true"/>
@@ -25,14 +25,14 @@
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/xom/xom/1.2.5/xom-1.2.5.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/beanshell/bsh-core/2.0b4/bsh-core-2.0b4.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/owasp/antisamy/antisamy/1.4.3/antisamy-1.4.3.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.1.0.RELEASE/2fa08987f81f81701f494019be7871709c8f5691/spring-core-4.1.0.RELEASE-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.1.0.RELEASE/cd3ba08b0fe1b2cb9dc50e9762c4ba4fae5d8401/spring-core-4.1.0.RELEASE.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/springframework/spring-core/4.1.0.RELEASE/spring-core-4.1.0.RELEASE.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.beanshell/bsh/2.0b4/a05f0a0feefa8d8467ac80e16e7de071489f0d9c/bsh-2.0b4.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.12/b48b3ece6fb6272e00bd76c377fedb1bfa83fe59/jcommander-1.12-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/com.beust/jcommander/1.12/7409692b48022f9eca7445861defbcdb9ee3c2a8/jcommander-1.12.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.6/ad2f59fe7bbbf758ee5f7282de133f18d5d3eda3/snakeyaml-1.6-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.6/a1e23e31c424d566ee27382e373d73a28fdabd88/snakeyaml-1.6.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/com/beust/jcommander/1.12/jcommander-1.12.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/yaml/snakeyaml/1.6/snakeyaml-1.6.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-digester/commons-digester/1.8/commons-digester-1.8.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/xalan/xalan/2.7.0/fe8fb14a14470c747d80c611852985ded830dab5/xalan-2.7.0-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/xalan/xalan/2.7.0/a33c0097f1c70b20fa7ded220ea317eb3500515e/xalan-2.7.0.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/xalan/xalan/2.7.0/xalan-2.7.0.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/apache/xmlgraphics/batik-css/1.7/batik-css-1.7.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/net/sourceforge/nekohtml/nekohtml/1.9.12/nekohtml-1.9.12.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar" exported="true"/>
@@ -40,7 +40,7 @@
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/apache/xmlgraphics/batik-ext/1.7/batik-ext-1.7.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/org/apache/xmlgraphics/batik-util/1.7/batik-util-1.7.jar" exported="true"/>
 	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.2/397f4731a9f9b6eb1907e224911c77ea3aa27a8b/commons-codec-1.2.jar" exported="true"/>
-	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/28bb0405fddaf04f15058fbfbe01fe2780d7d3b6/commons-logging-1.1.3-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.1.3/f6f66e966c70a83ffbdb6f17a0919eaf7c8aca7f/commons-logging-1.1.3.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-codec/commons-codec/1.2/commons-codec-1.2.jar" exported="true"/>
+	<classpathentry kind="lib" path="/Users/mcasperson/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar" exported="true"/>
 	<classpathentry sourcepath="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/xerces/xercesImpl/2.8.1/e9d4f5fd18622884c4e369bba570790100f70f32/xercesImpl-2.8.1-sources.jar" kind="lib" path="/Users/mcasperson/.gradle/caches/modules-2/files-2.1/xerces/xercesImpl/2.8.1/25101e37ec0c907db6f0612cbf106ee519c1aef1/xercesImpl-2.8.1.jar" exported="true"/>
 </classpath>

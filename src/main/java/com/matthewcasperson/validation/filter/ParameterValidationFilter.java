@@ -209,7 +209,6 @@ public class ParameterValidationFilter implements Filter {
 			 * or throwing unchecked exceptions during their own processing. This is logged as
 			 * severe as it is most likely a bug in the code.
 			 */
-			LOGGER.log(Level.SEVERE, ex.toString());
 			LOGGER.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(ex));	
 			
 			/*
@@ -245,7 +244,6 @@ public class ParameterValidationFilter implements Filter {
 				/*
 				 * This shouldn't happen, but log it if it does
 				 */
-				LOGGER.log(Level.SEVERE, ex.toString());
 				LOGGER.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(ex));	
 			}
 		}
@@ -269,7 +267,6 @@ public class ParameterValidationFilter implements Filter {
 			/*
 			 * This will happen if the supplied XML is invalid. Log the error
 			 */
-			LOGGER.log(Level.SEVERE, ex.toString());
 			LOGGER.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(ex));
 			
 			/*

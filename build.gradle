@@ -90,9 +90,14 @@ uploadArchives {
         authentication(userName: ossrhUsername, password: ossrhPassword)
       }
 
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+      /*snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
         authentication(userName: ossrhUsername, password: ossrhPassword)
+      }*/
+
+      snapshotRepository(url: "http://vm-ken-rhel02s.budgetdirect.com.au:8081/nexus/content/repositories/") {
+        authentication(userName: "admin", password: "@ut0g3n3r@l")
       }
+
       
 	/*
     	It is currently not possible to set the scope to anything other than runtime with the gradle
