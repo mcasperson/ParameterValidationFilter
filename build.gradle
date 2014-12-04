@@ -15,7 +15,7 @@ archivesBaseName = artifactName
  the sonar runner with "gradlew.bat sonarRunner"
 */
 task wrapper(type: Wrapper) {
-	gradleVersion = "2.2-rc-1"
+	gradleVersion = "2.2.1"
 }
 
 repositories {
@@ -81,17 +81,20 @@ signing {
     sign configurations.archives
 }
 
+def nexusUser = project.hasProperty('ossrhUsername') ? project.hasProperty('ossrhUsername') : ""
+def nexusPass = project.hasProperty('ossrhPassword') ? project.hasProperty('ossrhPassword') : ""
+
 uploadArchives {
   repositories {
     mavenDeployer {
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
       repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        authentication(userName: nexusUser, password: nexusPass)
       }
 
       snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
+        authentication(userName: nexusUser, password: nexusPass)
       }
 
 	/*
