@@ -81,8 +81,8 @@ signing {
     sign configurations.archives
 }
 
-def nexusUser = project.hasProperty('ossrhUsername') ? project.hasProperty('ossrhUsername') : ""
-def nexusPass = project.hasProperty('ossrhPassword') ? project.hasProperty('ossrhPassword') : ""
+def nexusUser = project.hasProperty('ossrhUsername') ? project.getProperty('ossrhUsername') : ""
+def nexusPass = project.hasProperty('ossrhPassword') ? project.getProperty('ossrhPassword') : ""
 
 uploadArchives {
   repositories {
