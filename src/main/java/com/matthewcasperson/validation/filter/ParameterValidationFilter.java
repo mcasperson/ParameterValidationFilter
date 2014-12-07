@@ -96,7 +96,7 @@ public class ParameterValidationFilter implements Filter {
 		try {		
 			if (parameterValidationDefinitions != null && parameterValidationDefinitions.getParameterValidationDefinitions() != null) {
 				
-				//LOGGER.log(Level.INFO, "Parameter Validation Filter has loaded the config file");
+				LOGGER.log(Level.FINE, "Parameter Validation Filter has loaded the config file");
 				
 				if (requestWrapper instanceof HttpServletRequest) {
 					
@@ -111,19 +111,21 @@ public class ParameterValidationFilter implements Filter {
 					 * param keys to loop over.
 					 */
 					final Enumeration<String> iter = httpServletRequest.getParameterNames();
+
+					paramaterNameLoop:
 					while (iter.hasMoreElements()) {
 						/*
 						 * Get the param name and move the enumerator along
 						 */
 						final String paramName = iter.nextElement();
 						
-						//LOGGER.log(Level.INFO, "Parameter Validation Filter processing " + paramName);
+						LOGGER.log(Level.FINE, "Parameter Validation Filter processing " + paramName);
 						
 						/*
 						 * Loop over each validation rule in the chain
 						 */
 						final List<ParameterValidationChain> validationChains = parameterValidationDefinitions.getParameterValidationDefinitions();
-						for (final ParameterValidationChain validationChain : validationChains) {													
+						for (final ParameterValidationChain validationChain : validationChains) {
 							
 							checkState(validationChain != null, "A validation rule should never be null");
 							
@@ -139,7 +141,7 @@ public class ParameterValidationFilter implements Filter {
 							
 							if (paramMatchesAfterNegation && uriMatchesAfterNegation) {
 								
-								//LOGGER.log(Level.INFO, "Parameter Validation Filter found matching chain");
+								LOGGER.log(Level.FINE, "Parameter Validation Filter found matching chain");
 								
 								/*
 								 * Loop over each rule in the chain 
@@ -156,12 +158,15 @@ public class ParameterValidationFilter implements Filter {
 									 * It is possible that a bad configuration will result in rule being null
 									 */
 									checkState(rule != null, "A validation rule should never be null. Check the class name defined in the configuration xml file.");
-											
+
 									try {
+										/*
+											Process the parameter
+										 */
 										final ServletRequest processRequest = rule.processParameter(requestWrapper, paramName);
-										
+
 										checkState(processRequest != null, "A validation rule should never return null when processing a paramemter");
-										
+
 										/*
 										 * The validation rule is expected to return a valid request regardless of the
 										 * processing that should or should not be done.
@@ -173,17 +178,24 @@ public class ParameterValidationFilter implements Filter {
 										 * are getting hit with invalid data.
 										 */
 										LOGGER.log(Level.WARNING, ex.toString());
-										
-										/*
-										 * In enforcing mode we rethrow the exception to be caught by an outer 
-										 * catch block that stops processing and returns a HTTP error code.
-										 */
+
+
 										if (parameterValidationDefinitions.getEnforcingMode()) {
+											/*
+												If we are enforcing, rethrow so the outer catch block can block the
+												request
+										 	*/
 											throw ex;
 										} else {
-											LOGGER.log(Level.WARNING, "Enforcing mode is not enabled in PVF. Continuing to process the request.");
+											/*
+												Otherwise move to the next parameter name. This allows us to be notified
+												of every param that will fail instead of just bailing with the first
+												one that fails.
+											 */
+											continue paramaterNameLoop;
 										}
-									}																	
+									}
+
 								}
 							} else {
 								/*
@@ -197,11 +209,12 @@ public class ParameterValidationFilter implements Filter {
 			}			
 		} catch (final ValidationFailedException ex) {					
 			/*
-			 * Stop processing and return a HTTP error code
+			 * Stop processing and return a HTTP error code if we are enforcing the rules
 			 */
-			respondWithBadRequest(response);
-			
-			return;
+			if (parameterValidationDefinitions.getEnforcingMode()) {
+				respondWithBadRequest(response);
+				return;
+			}
 		}
 		catch (final Exception ex) {
 			/*
@@ -212,17 +225,29 @@ public class ParameterValidationFilter implements Filter {
 			LOGGER.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(ex));	
 			
 			/*
-			 * Don't allow apps to process raw parameters if this filter has failed
+			 * Don't allow apps to process raw parameters if this filter has failed and we are
+			 * enforcing the rules
 			 */
-			respondWithBadRequest(response);
-			
-			return;
+			if (parameterValidationDefinitions.getEnforcingMode()) {
+				respondWithBadRequest(response);
+				return;
+			}
 		}
 		
 		/*
 		 * Continue to the next filter
 		 */
-		chain.doFilter(requestWrapper, response);
+		if (parameterValidationDefinitions.getEnforcingMode()) {
+			/*
+				In enforcing mode we pass the wrapper onto the next filter
+			 */
+			chain.doFilter(requestWrapper, response);
+		} else {
+			/*
+				If enforcing mode is not enabled, we pass through the original request
+			 */
+			chain.doFilter(request, response);
+		}
 	}
 	
 	/**
