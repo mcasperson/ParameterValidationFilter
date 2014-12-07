@@ -5,3 +5,5 @@
 /test-output/
 /local_build.gradle
 .DS_Store
+/.idea/
+*.iml
