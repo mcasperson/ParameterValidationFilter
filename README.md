@@ -28,7 +28,12 @@ Create a file called WEB-INF/xml/pvf.xml with the following contents:
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- ParameterValidationChainDatabase is always the document element -->
 <ParameterValidationChainDatabase>
-	<!-- We always have a single ParameterValidationChains element under the parent -->
+    <!--
+    Enforcing mode needs to be set to true to return a HTTP error code if validation fails.
+    If set to false, validation errors are logged but ignored.
+    -->
+    <EnforcingMode>true</EnforcingMode>
+    <!-- We always have a single ParameterValidationChains element under the parent -->
     <ParameterValidationChains>
     	
     	<!-- Each chain of validation rules is contained in a ParameterValidationDefinition element -->
