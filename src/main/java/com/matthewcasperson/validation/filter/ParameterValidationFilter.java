@@ -118,6 +118,8 @@ public class ParameterValidationFilter implements Filter {
 						 * Get the param name and move the enumerator along
 						 */
 						final String paramName = iter.nextElement();
+
+						boolean paramValidated = false;
 						
 						LOGGER.log(Level.FINE, "Parameter Validation Filter processing " + paramName);
 						
@@ -142,6 +144,11 @@ public class ParameterValidationFilter implements Filter {
 							if (paramMatchesAfterNegation && uriMatchesAfterNegation) {
 								
 								LOGGER.log(Level.FINE, "Parameter Validation Filter found matching chain");
+
+								/*
+								 * Make a note that this parameter has been validated by at least one rule
+								 */
+								paramValidated = true;
 								
 								/*
 								 * Loop over each rule in the chain 
@@ -197,12 +204,14 @@ public class ParameterValidationFilter implements Filter {
 									}
 
 								}
-							} else {
-								/*
+							}
+						}
+
+						if (!paramValidated) {
+							/*
 								 * This might be intentional, so log it as an INFO
 								 */
-								LOGGER.log(Level.INFO, paramName + " has not been validated.");
-							}
+							LOGGER.log(Level.INFO, paramName + " has not been validated.");
 						}
 					}					
 				}

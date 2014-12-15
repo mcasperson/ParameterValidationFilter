@@ -82,11 +82,11 @@ public class ParameterValidationDefinitionImpl {
 	}
 
 	/**
-	 * 
 	 * @return An instance of the class referenced in validationRuleName (or null if the name is
 	 * invalid).
+	 * @throws InvalidConfigurationException If the rule class could not be constructed
 	 */
-	public ParameterValidationRule getRule() throws InvalidConfigurationException{
+	public ParameterValidationRule getRule() throws InvalidConfigurationException {
 		if (rule == null) {
 			try {
 				final Class<?> klass = Class.forName(validationRuleName);

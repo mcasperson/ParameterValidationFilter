@@ -34,6 +34,8 @@ public interface SerialisationUtils {
 	 * 
 	 * @param object The object to be serialised
 	 * @param klass The type of object to return
+	 * @param additionalClasses A list of additional classes that might be required to deserialize the object
+	 * @param <T> The type of object we are serialising
 	 * @return The XML representation of the object
 	 */
 	<T> String writeToXML(final T object, final Class<T> klass, final Class<?>... additionalClasses);
@@ -41,6 +43,8 @@ public interface SerialisationUtils {
 	 * 
 	 * @param xml The XML representation of the object
 	 * @param klass The type of object to return
+	 * @param additionalClasses A list of additional classes that might be required to deserialize the object
+	 * @param <T> The type of object we are serialising
 	 * @return The Java object constructed from the XML
 	 */
 	<T> T readFromXML(final String xml, final Class<T> klass, final Class<?>... additionalClasses);

@@ -51,7 +51,7 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 	/**
 	 * This method will attempt to process the supplied parameter, and either stop all processing by throwning an
 	 * exception, or continue with other rules.
-	 * @throws ValidationFailedException 
+	 * @throws ValidationFailedException if the validation failed
 	 */
 	@Override
 	public ServletRequest processParameter(final ServletRequest request, final String name) throws ValidationFailedException {

@@ -55,7 +55,7 @@ public interface ParameterValidationRule {
 	 * Fixes and returns a parameter
 	 * @param name The name of the parameter
 	 * @param url The page that is being requested
-	 * @param param The input parameters
+	 * @param params The input parameters
 	 * @return The validated parameters
 	 * @throws ValidationFailedException when the parameter is invalid and can not be made valid
 	 */
