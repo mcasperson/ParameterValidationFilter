@@ -75,6 +75,23 @@ public class ValidationRulesTests {
 			Assert.fail();
 		}
 	}
+
+	/**
+	 * Tests that canonicalize can encoding again produces the same result.
+	 */
+	@Test
+	public void testEncode4() {
+		try {
+			final String testString = "hi&nbsp;there";
+			final HTMLEncodeTextValidationRule rule1 = new HTMLEncodeTextValidationRule();
+			final CanonicalizeTextValidationRule rule2 = new CanonicalizeTextValidationRule();
+			Assert.assertEquals(
+					testString,
+					rule1.fixParam("test", "test", rule2.fixParam("test", "test", testString)));
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+	}
 	
 	@Test
 	public void testRegex1() {
