@@ -27,6 +27,7 @@ package com.matthewcasperson.validation.ruleimpl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.owasp.esapi.Encoder;
@@ -42,6 +43,18 @@ import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
  */
 public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRuleTemplate {
 	private static final Logger LOGGER = Logger.getLogger(FailIfNotCanonicalizedValidationRule.class.getName());
+
+	private static final String ALLOW_BACK_SLASH = "allowBackSlash";
+	private boolean allowBackSlash = false;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void configure(final Map<String, String> settings) {
+		if (settings.containsKey(ALLOW_BACK_SLASH)) {
+			allowBackSlash = Boolean.parseBoolean(settings.get(ALLOW_BACK_SLASH));
+		}
+	}
 	
 	/**
 	 * {@inheritDoc}
@@ -56,7 +69,11 @@ public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRul
 		checkArgument(params.length != 0, "params should always have at least one value");
 
 		for (int paramIndex = 0, paramLength = params.length; paramIndex < paramLength; ++paramIndex) {
-			final String param = params[paramIndex];
+			String param = params[paramIndex];
+
+			if (allowBackSlash) {
+				param = param.replaceAll("\\\\", "");
+			}
 			
 			if (param != null) {
 				final Encoder encoder = DefaultEncoder.getInstance();

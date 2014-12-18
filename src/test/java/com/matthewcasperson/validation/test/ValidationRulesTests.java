@@ -202,6 +202,22 @@ public class ValidationRulesTests {
 
 	}
 
+	@Test
+	public void testFailEncoded1() {
+		final FailIfNotCanonicalizedValidationRule rule = new FailIfNotCanonicalizedValidationRule();
+		final Map<String, String> config = new HashMap<String, String>();
+		config.put("allowBackSlash", "true");
+		rule.configure(config);
+
+		try {
+			rule.fixParam("test", "test", "1\33");
+
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+
+	}
+
 
 	@Test
 	public void testRegex1() {
