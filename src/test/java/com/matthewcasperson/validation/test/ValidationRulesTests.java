@@ -27,16 +27,11 @@ package com.matthewcasperson.validation.test;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.matthewcasperson.validation.ruleimpl.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.matthewcasperson.validation.exception.ValidationFailedException;
-import com.matthewcasperson.validation.ruleimpl.CanonicalizeTextValidationRule;
-import com.matthewcasperson.validation.ruleimpl.FailIfNotRegexMatchValidationRule;
-import com.matthewcasperson.validation.ruleimpl.HTMLEncodeTextValidationRule;
-import com.matthewcasperson.validation.ruleimpl.NumbersOnlyValidationRule;
-import com.matthewcasperson.validation.ruleimpl.RemoveRegexMatches;
-import com.matthewcasperson.validation.ruleimpl.TrimTextValidationRule;
 
 public class ValidationRulesTests {
 	@Test
@@ -122,7 +117,35 @@ public class ValidationRulesTests {
 		}
 	}
 
+	@Test
+	public void testFailHtml() {
+		final FailIfContainsHTMLValidationRule rule = new FailIfContainsHTMLValidationRule();
 
+		try {
+			rule.fixParam("test", "test", "me & you");
+			Assert.fail();
+		} catch (final ValidationFailedException ex) {
+
+		}
+
+		try {
+			rule.fixParam("test", "test", "18511762");
+
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+
+		try {
+			/*
+				Although you can't see it, the spaces in this string are non-breaking.
+				There is no reason why someone should be trying in a non-breaking space.
+			 */
+			rule.fixParam("test", "test", "MR David Arnold");
+			Assert.fail();
+		} catch (final ValidationFailedException ex) {
+
+		}
+	}
 
 
 	
