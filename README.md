@@ -95,3 +95,11 @@ MORE INFORMATION
 ================
 
 See https://www.owasp.org/index.php/Parameter_Validation_Filter.
+
+QUICKLY SCANNING LOGS
+=====================
+
+Quite often you'll want to run the PVF in a non-enforcing mode to get an idea of the effect your validation
+rules will have. To quickly scan a log file for the parameters that would fail validation, run the command
+
+grep -E "^NAME: " catalina.2014-12-17.log | sort | uniq

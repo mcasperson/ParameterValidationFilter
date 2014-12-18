@@ -108,6 +108,22 @@ public class ValidationRulesTests {
 		}
 	}
 
+	@Test
+	public void testEncode6() {
+		try {
+			final String testString = "&quot;test&quot;";
+			final HTMLEncodeTextValidationRule rule1 = new HTMLEncodeTextValidationRule();
+			final CanonicalizeTextValidationRule rule2 = new CanonicalizeTextValidationRule();
+			Assert.assertEquals(
+					testString,
+					rule1.fixParam("test", "test", rule2.fixParam("test", "test", testString)));
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+	}
+
+
+
 
 	
 	@Test
@@ -149,7 +165,7 @@ public class ValidationRulesTests {
 	public void testRegexRemove() {
 		final RemoveRegexMatches rule = new RemoveRegexMatches();
 		final Map<String, String> settings = new HashMap<String, String>();
-		settings.put("pattern", "(<!--\\s*I am an invalid comment\\s*-->)|(<!--\\s*I am a second invalid comment\\s*-->)");
+		settings.put("pattern", "<!--\\s*I am an invalid comment\\s*-->|<!--\\s*I am a second invalid comment\\s*-->");
 		rule.configure(settings);
 		
 		try {
