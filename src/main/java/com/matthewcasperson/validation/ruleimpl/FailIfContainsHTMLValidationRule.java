@@ -27,7 +27,9 @@ package com.matthewcasperson.validation.ruleimpl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -41,6 +43,17 @@ import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
  */
 public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTemplate {
 	private static final Logger LOGGER = Logger.getLogger(FailIfContainsHTMLValidationRule.class.getName());
+	private static final String ALLOW_AMPERSANDS = "allowAmpersands";
+	private boolean allowAmpersands = false;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void configure(final Map<String, String> settings) {
+		if (settings.containsKey(ALLOW_AMPERSANDS)) {
+			allowAmpersands = Boolean.parseBoolean(settings.get(ALLOW_AMPERSANDS));
+		}
+	}
 	
 	/**
 	 * {@inheritDoc}
@@ -55,7 +68,11 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 		checkArgument(params.length != 0, "params should always have at least one value");
 
 		for (int paramIndex = 0, paramLength = params.length; paramIndex < paramLength; ++paramIndex) {
-			final String param = params[paramIndex];
+			String param = params[paramIndex];
+
+			if (allowAmpersands) {
+				param = param.replaceAll("&", "");
+			}
 			
 			if (param != null) {
 				final String encoded = StringEscapeUtils.escapeHtml4(param);

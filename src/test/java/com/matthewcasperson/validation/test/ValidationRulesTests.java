@@ -145,6 +145,29 @@ public class ValidationRulesTests {
 		} catch (final ValidationFailedException ex) {
 
 		}
+
+		try {
+			rule.fixParam("test", "test", "o'neil");
+
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+
+		try {
+			rule.fixParam("test", "test", "IÁNSON");
+			Assert.fail();
+		} catch (final ValidationFailedException ex) {
+
+		}
+
+		try {
+			rule.fixParam("test", "test", "O’brien");
+			Assert.fail();
+		} catch (final ValidationFailedException ex) {
+
+		}
+
+
 	}
 
 
