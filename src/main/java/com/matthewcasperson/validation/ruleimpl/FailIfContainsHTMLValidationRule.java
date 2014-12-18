@@ -27,6 +27,7 @@ package com.matthewcasperson.validation.ruleimpl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.text.Normalizer;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -44,7 +45,9 @@ import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
 public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTemplate {
 	private static final Logger LOGGER = Logger.getLogger(FailIfContainsHTMLValidationRule.class.getName());
 	private static final String ALLOW_AMPERSANDS = "allowAmpersands";
+	private static final String ALLOW_ACCENTS = "allowAccents";
 	private boolean allowAmpersands = false;
+	private boolean allowAccents = false;
 
 	/**
 	 * {@inheritDoc}
@@ -52,6 +55,10 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 	public void configure(final Map<String, String> settings) {
 		if (settings.containsKey(ALLOW_AMPERSANDS)) {
 			allowAmpersands = Boolean.parseBoolean(settings.get(ALLOW_AMPERSANDS));
+		}
+
+		if (settings.containsKey(ALLOW_ACCENTS)) {
+			allowAccents = Boolean.parseBoolean(settings.get(ALLOW_ACCENTS));
 		}
 	}
 	
@@ -72,6 +79,10 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 
 			if (allowAmpersands) {
 				param = param.replaceAll("&", "");
+			}
+
+			if (allowAccents) {
+				param = Normalizer.normalize(param, Normalizer.Form.NFD);
 			}
 			
 			if (param != null) {

@@ -186,7 +186,21 @@ public class ValidationRulesTests {
 
 	}
 
+	@Test
+	public void testFailHtml3() {
+		final FailIfContainsHTMLValidationRule rule = new FailIfContainsHTMLValidationRule();
+		final Map<String, String> config = new HashMap<String, String>();
+		config.put("allowAccents", "true");
+		rule.configure(config);
 
+		try {
+			rule.fixParam("test", "test", "Samàntha");
+
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+
+	}
 
 
 	@Test
