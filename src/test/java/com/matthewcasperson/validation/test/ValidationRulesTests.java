@@ -170,8 +170,25 @@ public class ValidationRulesTests {
 
 	}
 
+	@Test
+	public void testFailHtml2() {
+		final FailIfContainsHTMLValidationRule rule = new FailIfContainsHTMLValidationRule();
+		final Map<String, String> config = new HashMap<String, String>();
+		config.put("allowAmpersands", "true");
+		rule.configure(config);
 
-	
+		try {
+			rule.fixParam("test", "test", "me & you");
+
+		} catch (final ValidationFailedException ex) {
+			Assert.fail();
+		}
+
+	}
+
+
+
+
 	@Test
 	public void testRegex1() {
 		final FailIfNotRegexMatchValidationRule rule = new FailIfNotRegexMatchValidationRule();
