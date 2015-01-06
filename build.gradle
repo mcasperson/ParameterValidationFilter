@@ -173,7 +173,7 @@ jacoco {
  * The project in SonarQube will display the x.y version. This means all z releases will be
  * grouped together
  */
-def sonarQubeVersion = fullVersion
+def sonarQubeVersion = version
 
 def releaseMajorMinorPattern = ~/(\d+)\.(\d+)\.(\d+)(-.*?-SNAPSHOT)?/;
 def matcher = releaseMajorMinorPattern.matcher(sonarQubeVersion);
