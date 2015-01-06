@@ -3,6 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: "jacoco"
 apply plugin: 'signing'
+apply plugin: 'sonar-runner'
 
 sourceCompatibility = 1.7
 version = artifactVersion
@@ -166,4 +167,21 @@ test {
 */
 jacoco {
     toolVersion = jacocoVersion
+}
+
+/*
+	SonarQube runner preferences
+*/
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", sonarUrl
+        property "sonar.jdbc.url", sonarJDBC
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", sonarUser
+        property "sonar.jdbc.password", sonarPass
+        property "sonar.sources", "src"
+        property "sonar.importSources", "true"
+        property "sonar.projectName", artifactName + " " + sonarQubeVersion
+        property "sonar.projectKey", artifactGroup + ":" + artifactName + ":" + sonarQubeVersion
+    }
 }
