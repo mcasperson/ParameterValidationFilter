@@ -145,7 +145,7 @@ public class ValidationRulesTests {
 			Assert.fail();
 		} catch (final ValidationFailedException ex) {
 
-		}*/
+		}
 
 		try {
 			rule.fixParam("test", "test", "o'neil");
@@ -166,9 +166,7 @@ public class ValidationRulesTests {
 			Assert.fail();
 		} catch (final ValidationFailedException ex) {
 
-		}
-
-
+		}*/
 	}
 
 	@Test
