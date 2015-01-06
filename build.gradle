@@ -191,8 +191,8 @@ sonarRunner {
         property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
         property "sonar.jdbc.username", sonarUser
         property "sonar.jdbc.password", sonarPass
-        property "sonar.sources", "src"
-        property "sonar.importSources", "true"
+        //property "sonar.sources", "src"
+        property "sonar.importSources", "false"
         property "sonar.projectName", artifactName + " " + sonarQubeVersion
         property "sonar.projectKey", artifactGroup + ":" + artifactName + ":" + sonarQubeVersion
     }
