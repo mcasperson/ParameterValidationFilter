@@ -170,6 +170,18 @@ jacoco {
 }
 
 /*
+ * The project in SonarQube will display the x.y version. This means all z releases will be
+ * grouped together
+ */
+def sonarQubeVersion = fullVersion
+
+def releaseMajorMinorPattern = ~/(\d+)\.(\d+)\.(\d+)(-.*?-SNAPSHOT)?/;
+def matcher = releaseMajorMinorPattern.matcher(sonarQubeVersion);
+if (matcher.find()) {
+    sonarQubeVersion = matcher.group(1) + "." + matcher.group(2) + ".x" + (matcher.group(4) == null ? "" : matcher.group(4))
+}
+
+/*
 	SonarQube runner preferences
 */
 sonarRunner {
