@@ -35,6 +35,7 @@ def esapiVersion = '2.1.0'
 def guavaVersion = '14.0.1'
 def apacheCommonsIOVersion = '2.4'
 def apacheCommonsLangVersion = '3.0'
+def owaspHtmlSanitizerVersion = 'r239'
 
 /*
  These libraries are provided. Gradle has no concept of provided libraries,
@@ -58,6 +59,7 @@ dependencies {
 	compile 'com.google.guava:guava:' + guavaVersion
 	compile 'commons-io:commons-io:' + apacheCommonsIOVersion
 	compile 'org.apache.commons:commons-lang3:' + apacheCommonsLangVersion
+    compile 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:' + owaspHtmlSanitizerVersion
 	
 	testCompile 'org.springframework:spring-test:' + springTestVersion
 	testCompile 'org.mockito:mockito-all:' + mockitoVersion	

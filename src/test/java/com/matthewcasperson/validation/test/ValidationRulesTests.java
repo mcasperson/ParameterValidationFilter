@@ -268,4 +268,17 @@ public class ValidationRulesTests {
 			
 		}
 	}
+
+	@Test
+	public void testSanitizeHTML() {
+		final SanitizeHTMLValidationRule rule = new SanitizeHTMLValidationRule();
+
+		try {
+			Assert.assertEquals(
+					rule.fixParam("test", "test", "<script>doEvil();</script><div>div contents</div><a href=\"http://example.org\">link</a><a onclick=\"javascript:alert('Oh Noes!!!!')\">Bad Link</a>"),
+					"<div>div contents</div>linkBad Link");
+		} catch (final ValidationFailedException ex) {
+
+		}
+	}
 }
