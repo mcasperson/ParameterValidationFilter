@@ -281,4 +281,17 @@ public class ValidationRulesTests {
 
 		}
 	}
+
+	@Test
+	public void testNonBreakingSpaceRemovalHTML() {
+		final ReplaceNonBreakingSpaceWithSpaceValidationRule rule = new ReplaceNonBreakingSpaceWithSpaceValidationRule();
+
+		try {
+			Assert.assertEquals(
+					rule.fixParam("test", "test", "Hi&nbsp;there\u00A0you&#160;1&#xa0;2"),
+					"Hi there you 1 2");
+		} catch (final ValidationFailedException ex) {
+
+		}
+	}
 }
