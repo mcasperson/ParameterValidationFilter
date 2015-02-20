@@ -27,6 +27,7 @@ package com.matthewcasperson.validation.ruleimpl;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringEscapeUtils;

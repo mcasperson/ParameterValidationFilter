@@ -46,10 +46,8 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 	private static final Logger LOGGER = Logger.getLogger(FailIfContainsHTMLValidationRule.class.getName());
 	private static final String ALLOW_AMPERSANDS = "allowAmpersands";
 	private static final String ALLOW_ACCENTS = "allowAccents";
-    private static final String ALLOW_PERCENTS = "allowPercents";
 	private boolean allowAmpersands = false;
 	private boolean allowAccents = false;
-    private boolean allowPercents = false;
 
 	/**
 	 * {@inheritDoc}
@@ -62,10 +60,6 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 		if (settings.containsKey(ALLOW_ACCENTS)) {
 			allowAccents = Boolean.parseBoolean(settings.get(ALLOW_ACCENTS));
 		}
-
-        if (settings.containsKey(ALLOW_PERCENTS)) {
-            allowPercents = Boolean.parseBoolean(settings.get(ALLOW_PERCENTS));
-        }
 	}
 	
 	/**
@@ -90,10 +84,6 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 			if (allowAccents) {
 				param = Normalizer.normalize(param, Normalizer.Form.NFD);
 			}
-
-            if (allowPercents) {
-                param = param.replaceAll("%", "");
-            }
 			
 			if (param != null) {
 				final String encoded = StringEscapeUtils.escapeHtml4(param);

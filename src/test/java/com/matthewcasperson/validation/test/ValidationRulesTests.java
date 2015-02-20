@@ -282,6 +282,25 @@ public class ValidationRulesTests {
 		}
 	}
 
+    @Test
+    public void testSanitizeHTML2() {
+        final SanitizeHTMLValidationRule rule = new SanitizeHTMLValidationRule();
+        final Map<String, String> settings = new HashMap<String, String>();
+        settings.put("allowLinks", "true");
+        rule.configure(settings);
+
+        try {
+            Assert.assertEquals(
+                rule.fixParam(
+                    "test",
+                    "test",
+                    "<script>doEvil();</script><div>div contents</div><div><a href=\"http://example.org\">link</a><a onclick=\"javascript:alert('Oh Noes!!!!')\">Bad Link</a></div>"),
+                "<div>div contents</div><div><a href=\"http://example.org\">link</a>Bad Link</div>");
+        } catch (final ValidationFailedException ex) {
+
+        }
+    }
+
 	@Test
 	public void testNonBreakingSpaceRemovalHTML() {
 		final ReplaceNonBreakingSpaceWithSpaceValidationRule rule = new ReplaceNonBreakingSpaceWithSpaceValidationRule();

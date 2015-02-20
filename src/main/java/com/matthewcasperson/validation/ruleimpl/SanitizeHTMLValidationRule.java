@@ -4,6 +4,7 @@ import com.matthewcasperson.validation.exception.ValidationFailedException;
 import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
 import org.owasp.html.*;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class SanitizeHTMLValidationRule extends ParameterValidationRuleTemplate {
     private static final Logger LOGGER = Logger.getLogger(SanitizeHTMLValidationRule.class.getName());
+
+    private static final String A_ELEMENT = "a";
+    private static final String HREF_ATTR = "href";
+    private static final String[] URL_PROTOCOLS = new String[] {"https", "http"};
+
+    private static final String ALLOW_LINKS = "allowLinks";
+
+
+    private boolean allowLinks = false;
+
+    public void configure(final Map<String, String> settings) {
+        if (settings.containsKey(ALLOW_LINKS)) {
+            allowLinks = Boolean.parseBoolean(settings.get(ALLOW_LINKS));
+        }
+    }
 
     @Override
     public String[] fixParams(final String name, final String url, final String[] params) throws ValidationFailedException {
@@ -42,10 +58,19 @@ public class SanitizeHTMLValidationRule extends ParameterValidationRuleTemplate 
                             }
                         });
 
-                final HtmlSanitizer.Policy policy = new HtmlPolicyBuilder()
+                HtmlPolicyBuilder policyBuilder = new HtmlPolicyBuilder()
                         .allowCommonBlockElements()
-                        .allowCommonInlineFormattingElements()
-                        .build(renderer);
+                        .allowCommonInlineFormattingElements();
+
+                if (allowLinks) {
+                    policyBuilder = policyBuilder
+                        .allowElements(A_ELEMENT)
+                        .allowAttributes(HREF_ATTR).onElements(A_ELEMENT)
+                        .allowUrlProtocols(URL_PROTOCOLS);
+
+                }
+
+                final HtmlSanitizer.Policy policy =  policyBuilder.build(renderer);
 
                 HtmlSanitizer.sanitize(param, policy);
 
