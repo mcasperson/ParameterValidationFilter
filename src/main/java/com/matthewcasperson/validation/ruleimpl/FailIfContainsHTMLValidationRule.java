@@ -44,10 +44,15 @@ import com.matthewcasperson.validation.rule.ParameterValidationRuleTemplate;
  */
 public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTemplate {
 	private static final Logger LOGGER = Logger.getLogger(FailIfContainsHTMLValidationRule.class.getName());
-	private static final String ALLOW_AMPERSANDS = "allowAmpersands";
+
+    private static final String ELLIPSIS = "…";
+
+    private static final String ALLOW_AMPERSANDS = "allowAmpersands";
 	private static final String ALLOW_ACCENTS = "allowAccents";
+    private static final String ALLOW_ELLIPSIS = "allowEllipsis";
 	private boolean allowAmpersands = false;
 	private boolean allowAccents = false;
+    private boolean allowEllipsis = false;
 
 	/**
 	 * {@inheritDoc}
@@ -60,6 +65,10 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 		if (settings.containsKey(ALLOW_ACCENTS)) {
 			allowAccents = Boolean.parseBoolean(settings.get(ALLOW_ACCENTS));
 		}
+
+        if (settings.containsKey(ALLOW_ELLIPSIS)) {
+            allowEllipsis = Boolean.parseBoolean(settings.get(ALLOW_ELLIPSIS));
+        }
 	}
 	
 	/**
@@ -82,8 +91,12 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 			}
 
 			if (allowAccents) {
-				param = Normalizer.normalize(param, Normalizer.Form.NFD);
-			}
+                param = Normalizer.normalize(param, Normalizer.Form.NFD);
+            }
+
+            if (allowEllipsis) {
+                param = param.replaceAll(ELLIPSIS, "");
+            }
 			
 			if (param != null) {
 				final String encoded = StringEscapeUtils.escapeHtml4(param);
