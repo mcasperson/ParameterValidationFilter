@@ -84,17 +84,30 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 				final HttpServletRequestWrapper newRequest = new HttpServletRequestWrapper(httpServletRequest) {
 
 					/**
-					 * Override the getParameterValues returning our new array of parameters. This
-					 * in turn affects the getParameter method, which according to the docs has
-					 * a return value that "is equal to the first value in the array returned by getParameterValues"
+					 * Override the getParameterValues returning our new array of parameters.
 					 */
 					public String[] getParameterValues(final String newName) {
 						if (name.equals(newName)) {
 							return processedParams;
 						}
-						
+
 						return super.getParameterValues(newName);
 					}
+
+                    /**
+                     * Override the getParameter which returns the first value in the array
+                     */
+                    public String getParameter(final String newName) {
+                        if (name.equals(newName)) {
+                            if (processedParams == null || processedParams.length == 0) {
+                                return null;
+                            }
+
+                            return processedParams[0];
+                        }
+
+                        return super.getParameter(newName);
+                    }
 				};
 				
 				/*
