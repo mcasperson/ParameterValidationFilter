@@ -301,6 +301,25 @@ public class ValidationRulesTests {
         }
     }
 
+    @Test
+    public void testSanitizeHTML3() {
+        final SanitizeHTMLValidationRule rule = new SanitizeHTMLValidationRule();
+        final Map<String, String> settings = new HashMap<String, String>();
+        settings.put("allowLinks", "true");
+        rule.configure(settings);
+
+        try {
+            Assert.assertEquals(
+                    rule.fixParam(
+                            "test",
+                            "test",
+                            "<a href=\"javascript:doEvil()\">link</a>"),
+                    "link");
+        } catch (final ValidationFailedException ex) {
+
+        }
+    }
+
 	@Test
 	public void testNonBreakingSpaceRemovalHTML() {
 		final ReplaceNonBreakingSpaceWithSpaceValidationRule rule = new ReplaceNonBreakingSpaceWithSpaceValidationRule();
