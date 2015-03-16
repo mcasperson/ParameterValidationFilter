@@ -211,7 +211,7 @@ public class ParameterValidationFilter implements Filter {
 							/*
 								 * This might be intentional, so log it as an INFO
 								 */
-							LOGGER.log(Level.INFO, paramName + " has not been validated.");
+							LOGGER.log(Level.INFO, "PVF-INFO-0001: " + paramName + " has not been validated.");
 						}
 					}					
 				}

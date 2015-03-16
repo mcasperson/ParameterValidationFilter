@@ -72,7 +72,7 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 			 */
 			final String[] processedParams = fixParams(name, ((HttpServletRequest) request).getRequestURL().toString(), params);
 			
-			checkState(processedParams.length == params.length, "fixParams should always return the same number of elements as it was passed");
+			checkState(processedParams.length == params.length, "PVF-BUG-0001: fixParams should always return the same number of parameters as it was passed");
 							
 			/*
 			 * Did it make any difference?
@@ -135,8 +135,8 @@ abstract public class ParameterValidationRuleTemplate implements ParameterValida
 		checkArgument(!url.trim().isEmpty());
 		
 		final String[] retValue = this.fixParams(name, url, new String[] {param});
-		checkState(retValue != null, "fixParams should never return null");
-		checkState(retValue.length == 1, "fixParams should always return the same number of parameters as it is given");
+		checkState(retValue != null, "PVF-BUG-0002: fixParams should never return null");
+		checkState(retValue.length == 1, "PVF-BUG-0001: fixParams should always return the same number of parameters as it is given");
 		return retValue[0];
 	}
 	

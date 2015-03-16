@@ -77,9 +77,9 @@ public class FailIfNotRegexMatchValidationRule extends ParameterValidationRuleTe
 		checkNotNull(url);
 		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
-		checkArgument(params.length != 0, "params should always have at least one value");
+		checkArgument(params.length != 0, "PVF-BUG-0003: params should always have at least one value");
 		
-		checkState(pattern != null, "The pattern should not be null. Make sure the rule is assigned a valid regex with the setting key " + PATTERN_KEY_NAME + ". e.g \n" + 
+		checkState(pattern != null, "PVF-CONFIGURATION-0001: The pattern should not be null. Make sure the rule is assigned a valid regex with the setting key " + PATTERN_KEY_NAME + ". e.g \n" +
 				"<ParameterValidationRule>\n" +		
                     "<settings>\n" +	
                         "<entry>\n" +	
@@ -94,7 +94,7 @@ public class FailIfNotRegexMatchValidationRule extends ParameterValidationRuleTe
 			final String param = params[paramIndex];
 			
 			if (!pattern.matcher(param).find()) {
-				throw new ValidationFailedException("Param did not find a match with the regex " + pattern.toString() + "\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
+				throw new ValidationFailedException("PVF-SECURITY-0003: Param did not find a match with the regex " + pattern.toString() + "\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 			}
 		}
 		

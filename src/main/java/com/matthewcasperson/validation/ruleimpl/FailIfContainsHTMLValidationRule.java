@@ -81,7 +81,7 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 		checkNotNull(url);
 		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
-		checkArgument(params.length != 0, "params should always have at least one value");
+		checkArgument(params.length != 0, "PVF-BUG-0003: params should always have at least one value");
 
 		for (int paramIndex = 0, paramLength = params.length; paramIndex < paramLength; ++paramIndex) {
 			String param = params[paramIndex];
@@ -102,7 +102,7 @@ public class FailIfContainsHTMLValidationRule extends ParameterValidationRuleTem
 				final String encoded = StringEscapeUtils.escapeHtml4(param);
 				
 				if (!encoded.equals(param)) {
-					throw new ValidationFailedException("Parameter found to have special HTML characters.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
+					throw new ValidationFailedException("PVF-SECURITY-0001: Parameter found to have special HTML characters.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 				}
 			}
 		}

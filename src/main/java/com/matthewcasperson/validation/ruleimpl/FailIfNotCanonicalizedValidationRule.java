@@ -66,7 +66,7 @@ public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRul
 		checkNotNull(url);
 		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
-		checkArgument(params.length != 0, "params should always have at least one value");
+		checkArgument(params.length != 0, "PVF-BUG-0003: params should always have at least one value");
 
 		for (int paramIndex = 0, paramLength = params.length; paramIndex < paramLength; ++paramIndex) {
 			String param = params[paramIndex];
@@ -80,7 +80,7 @@ public class FailIfNotCanonicalizedValidationRule extends ParameterValidationRul
 				final String canonicalized = encoder.canonicalize(param, false);
 				
 				if (!canonicalized.equals(param)) {
-					throw new ValidationFailedException("Param was found to already be encoded.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
+					throw new ValidationFailedException("PVF-SECURITY-0002: Param was found to already be encoded.\nNAME: " + name + "\nVALUE: " + param + "\nURL: " + url);
 				}
 			}
 		}

@@ -53,7 +53,7 @@ public class RemoveRegexMatches extends ParameterValidationRuleTemplate {
 		checkNotNull(url);
 		checkArgument(!url.trim().isEmpty());
 		checkNotNull(params);
-		checkArgument(params.length != 0, "params should always have at least one value");
+		checkArgument(params.length != 0, "PVF-BUG-0003: params should always have at least one value");
 		
 
 		final String[] retValues = new String[params.length];
