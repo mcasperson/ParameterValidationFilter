@@ -5,6 +5,8 @@ The Parameter Validation Filter (PVF) is a Java library containing a class that 
 
 This library is based off the idea discussed on the OWASP website at https://www.owasp.org/index.php/How_to_add_validation_logic_to_HttpServletRequest.
 
+You can find a write up of this library at http://java.dzone.com/articles/xss-filter-java-ee-web-apps.
+
 HOW TO USE
 ==========
 
