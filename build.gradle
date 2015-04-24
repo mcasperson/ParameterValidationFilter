@@ -16,7 +16,7 @@ archivesBaseName = artifactName
  the sonar runner with "gradlew.bat sonarRunner"
 */
 task wrapper(type: Wrapper) {
-	gradleVersion = "2.2.1"
+	gradleVersion = "2.3"
 }
 
 repositories {
