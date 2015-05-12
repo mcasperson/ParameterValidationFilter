@@ -220,7 +220,8 @@ public class ParameterValidationFilter implements Filter {
 			/*
 			 * Stop processing and return a HTTP error code if we are enforcing the rules
 			 */
-			if (parameterValidationDefinitions.getEnforcingMode()) {
+			if (parameterValidationDefinitions != null &&
+                    parameterValidationDefinitions.getEnforcingMode()) {
 				respondWithBadRequest(response);
 				return;
 			}
@@ -237,7 +238,8 @@ public class ParameterValidationFilter implements Filter {
 			 * Don't allow apps to process raw parameters if this filter has failed and we are
 			 * enforcing the rules
 			 */
-			if (parameterValidationDefinitions.getEnforcingMode()) {
+			if (parameterValidationDefinitions != null &&
+                    parameterValidationDefinitions.getEnforcingMode()) {
 				respondWithBadRequest(response);
 				return;
 			}
@@ -246,7 +248,8 @@ public class ParameterValidationFilter implements Filter {
 		/*
 		 * Continue to the next filter
 		 */
-		if (parameterValidationDefinitions.getEnforcingMode()) {
+		if (parameterValidationDefinitions != null &&
+                parameterValidationDefinitions.getEnforcingMode()) {
 			/*
 				In enforcing mode we pass the wrapper onto the next filter
 			 */
