@@ -78,7 +78,7 @@ public class ParameterValidationDefinitionImpl {
 	 * @param validationRuleName The fully qualified name of the class that will be used to perform the validation
 	 */
 	public void setValidationRuleName(final String validationRuleName) {
-		this.validationRuleName = validationRuleName;
+		this.validationRuleName = validationRuleName.trim();
 	}
 
 	/**
